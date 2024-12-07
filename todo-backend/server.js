@@ -18,11 +18,19 @@ const connectDB = async() => {
     }
 }
 
-app.post("/add-todo", (req,res)=>{
+app.post("/add-todo",async (req,res)=>{
         const title = req.body;
         console.log("New todo added", req.body)
-        console.log("Adding a new todo", title)
-        res.status(200).json({message:"Hello from Express Server Magical server"})
+        console.log("Adding a new todo", title.todo)
+        const newTodo = new Todo({
+            title: title.todo
+        })
+
+        console.log("Adding a todo for DB", newTodo)
+        const savedTodo = await newTodo.save()
+        console.log("Added a todo for DB", savedTodo)
+
+        res.status(200).json(savedTodo)
 })
 connectDB()
 const PORT = 3003;
