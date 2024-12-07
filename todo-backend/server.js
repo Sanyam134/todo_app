@@ -21,6 +21,7 @@ const connectDB = async() => {
 app.post("/add-todo", (req,res)=>{
         const title = req.body;
         console.log("New todo added", req.body)
+        console.log("Adding a new todo", title)
         res.status(200).json({message:"Hello from Express Server Magical server"})
 })
 connectDB()
