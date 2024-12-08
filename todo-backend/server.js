@@ -1,7 +1,10 @@
 const express = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser")
-const mongoose = require("mongoose")
+const dotenv = require("dotenv")
+const connectDB = require("'/db")
+
+dotenv.config()
 
 const app = express();
 app.use(cors)
@@ -9,14 +12,7 @@ app.use(bodyParser.json)
 app.use(express.json)
 const Todo = require("./Models/todoModel")
 
-const connectDB = async() => {
-    try{
-        await mongoose.connect("mongodb+srv://devops:devops@todoappdb.teumm.mongodb.net/?retryWrites=true&w=majority&appName=TOdoAPPDB")
-        console.log("Connected")
-    } catch(error){
-        console.error("Error", error)
-    }
-}
+connectDB()
 
 app.get("/get-todo", async (req,res)=>{
     console.log("Fetching logs from todo DB")
