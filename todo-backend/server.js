@@ -11,7 +11,7 @@ const Todo = require("./Models/todoModel")
 
 const connectDB = async() => {
     try{
-        await mongoose.connect("mongodb+srv://<devops>:<devops>@todoappdb.teumm.mongodb.net/?retryWrites=true&w=majority&appName=TOdoAPPDB")
+        await mongoose.connect("mongodb+srv://devops:devops@todoappdb.teumm.mongodb.net/?retryWrites=true&w=majority&appName=TOdoAPPDB")
         console.log("Connected")
     } catch(error){
         console.error("Error", error)
