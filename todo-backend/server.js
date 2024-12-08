@@ -18,6 +18,18 @@ const connectDB = async() => {
     }
 }
 
+app.get("/get-todo", async (req,res)=>{
+    console.log("Fetching logs from todo DB")
+    try{
+        const todos = Todo.find();
+        console.log("Fetching all todos", todos)
+        res.status(200).json({message:"something went wrong"})
+    }catch(error){
+        console.log("Error while fetching todos", error)
+        res.status(500).json({message: "something went wrong please try later"})
+    }
+})
+
 app.post("/add-todo",async (req,res)=>{
         const title = req.body;
         console.log("New todo added", req.body)
