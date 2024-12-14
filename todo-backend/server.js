@@ -2,46 +2,25 @@ const express = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser")
 const dotenv = require("dotenv")
-const connectDB = require("'/db")
-
+const connectDB = require("./db")
+const todoRoutes = require("./routes/todoRoutes")
 dotenv.config()
 
 const app = express();
 app.use(cors)
 app.use(bodyParser.json)
 app.use(express.json)
+
+app.use('/api', todoRoutes)
 const Todo = require("./Models/todoModel")
 
 connectDB()
 
-app.get("/get-todo", async (req,res)=>{
-    console.log("Fetching logs from todo DB")
-    try{
-        const todos = Todo.find();
-        console.log("Fetching all todos", todos)
-        res.status(200).json({message:"something went wrong"})
-    }catch(error){
-        console.log("Error while fetching todos", error)
-        res.status(500).json({message: "something went wrong please try later"})
-    }
-})
+app.get("/get-todo") 
 
-app.post("/add-todo",async (req,res)=>{
-        const title = req.body;
-        console.log("New todo added", req.body)
-        console.log("Adding a new todo", title.todo)
-        const newTodo = new Todo({
-            title: title.todo
-        })
 
-        console.log("Adding a todo for DB", newTodo)
-        const savedTodo = await newTodo.save()
-        console.log("Added a todo for DB", savedTodo)
 
-        res.status(200).json(savedTodo)
-})
-connectDB()
-const PORT = 3003;
+const PORT = process.env.PORT || 3003;
 app.listen(PORT,() => {
     console.log("Server 3003")   
     
